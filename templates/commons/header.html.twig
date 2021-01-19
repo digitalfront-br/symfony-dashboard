@@ -1,0 +1,81 @@
+<header uk-sticky="cls-active: uk-navbar-sticky">
+	<div class="uk-container uk-container-expand">
+		<nav class="uk-navbar menu-topo uk-background-default uk-padding-small uk-box-shadow-medium uk-border-rounded" uk-navbar>
+
+			<div class="nav-overlay uk-navbar-left">
+				<a class="uk-margin-right uk-visible@s" uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#">
+					<i width="30" height="30" stroke-width="1.5" data-feather="search"></i>
+				</a>
+				<div class="uk-hidden@s  uk-padding-small uk-padding-remove-vertical">
+					<a uk-navbar-toggle-icon="" href="#offcanvas-sidebar" uk-toggle="" class="uk-icon uk-navbar-toggle-icon"></a>
+					<div class="mobile">
+						<a href="" class="uk-icon-close" uk-icon="icon: close; ratio: 1.2"></a>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="nav-overlay uk-navbar-right">
+
+				<a class="uk-margin-right uk-hidden@s" uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#">
+					<i width="30" height="30" stroke-width="1.5" data-feather="search"></i>
+				</a>
+				<div>
+					<div class="uk-grid-small uk-flex-middle" uk-grid>
+						<div class="uk-width-expand uk-text-right avatar-text">
+							<p class="uk-margin-remove-bottom uk-text-small uk-text-bold">{{ app.user.name }}</p>
+							{% if  app.user.roles[0] == 'ROLE_ADMIN' %}
+								<span class="uk-text-small">Admin</span>
+							{% elseif  app.user.roles[0] == 'ROLE_USER' %}
+								<span class="uk-text-small">Usuário</span>
+							{% else %}
+								<span class="uk-text-small">Anonimo</span>
+							{% endif %}
+
+						</div>
+						<div class="uk-width-auto">
+							<a href="">
+								{% if  app.user.avatar %}
+									<img class="uk-border-circle" width="40" height="40" src="/assets/img/avatars/{{ app.user.avatar }}">
+								{% endif %}
+							</a>
+							<div class="uk-width-small" uk-drop="mode: click">
+								<div class="uk-card uk-card-small uk-card-body uk-card-default">
+									<ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
+										<li>
+											<a href="#">
+												<i width="20" height="20" stroke-width="2" data-feather="user"></i>
+												Perfil</a>
+										</li>
+										<li>
+											<a href="#">
+												<i width="20" height="20" stroke-width="2" data-feather="settings"></i>
+												Settings</a>
+										</li>
+										<li>
+											<a class="uk-text-danger" href="{{ path('app_logout') }}">
+												<i width="20" height="20" stroke-width="2" data-feather="log-out"></i>
+												Sair</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="nav-overlay uk-navbar-left uk-flex-1" hidden>
+
+				<div class=" uk-width-expand">
+					<form class="uk-search uk-search-navbar uk-width-1-1">
+						<input class="uk-search-input" type="search" placeholder="Pesquisar..." autofocus>
+					</form>
+				</div>
+				<a uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+			</div>
+
+		</nav>
+	</div>
+</header>

@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+<div class="uk-margin">
+	{{ form_widget(form.name) }}
+</div>
+<div class="uk-margin">
+	{{ form_widget(form.email) }}
+</div>
+<div class="uk-margin">
+	{{ form_widget(form.password) }}
+</div>
+<div class="uk-margin uk-grid uk-grid-margin uk-grid-small uk-child-width-expand" uk-grid>
+	<div>
+		{{ form_widget(form.avatar) }}
+	</div>
+	<div>
+		{{ form_widget(form.status) }}
+	</div>
+	<div>
+		{{ form_widget(form.roles) }}
+	</div>
+</div>
+<div class="uk-margin">
+	{{ form_widget(form.bio) }}
+</div>
+<div class="uk-margin-top uk-text-right">
+	<button class="uk-button uk-button-primary">{{ button_label|default('Salvar') }}</button>
+</div>
+{{ form_end(form) }}

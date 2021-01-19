@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuário
+{% endblock %}
+
+{% block body %}
+	<div>
+		<h3 id="card" class="uk-h3 heading-fragment uk-flex uk-flex-between">
+			<span>Usuário</span>
+			<span>
+				<a href="{{ path('user_index') }}" class="uk-button uk-button-default uk-button-small">Voltar</a>
+			</span>
+		</h3>
+		<div class="uk-card uk-card-small uk-card-body uk-card-default">
+			<div class="uk-margin uk-flex uk-flex-between">
+				<div>
+					<span class="uk-text-small uk-text-bold">Avatar</span>
+					<div>
+						<img src="/assets/img/avatars/{{ user.avatar }}" alt="">
+					</div>
+				</div>
+				<div>
+					<span class="uk-text-small uk-text-bold">Roles</span>
+					<p class="uk-margin-remove">
+						{% if user.roles[0] == 'ROLE_ADMIN' %}
+							Admin
+						{% elseif user.roles[0] == 'ROLE_USER' %}
+							User
+						{% endif %}
+					</p>
+				</div>
+				<div>
+					<span class="uk-text-small uk-text-bold">Status</span>
+					<p class="uk-margin-remove">
+						{% if user.status == 1 %}
+							<span class="uk-badge "></span>
+							ativo
+						{% elseif user.status == 2 %}
+							<span class="uk-text-primary">
+								<span uk-icon="icon: future; ratio: 1.2"></span>
+								Esperimentando
+							</span>
+						{% elseif user.status == 0 %}
+							<span class="uk-badge uk-background-muted"></span>
+							desativado
+						{% endif %}
+					</p>
+				</div>
+				{% if app.user.roles[0] == 'ROLE_ADMIN' %}
+					<div class="uk-margin uk-flex ">
+						<a class="uk-text-warning uk-margin-right" href="{{ path('user_edit', {'id': user.id}) }}">
+							<span uk-icon="icon: file-edit; ratio: 1.2"></span>
+						</a>
+						{% if user.id != app.user.id  %}
+							{{ include('user/_delete_form.html.twig') }}
+						{% endif %}
+					</div>
+				{% elseif user.id == app.user.id  and app.user.roles[0] == 'ROLE_USER' %}
+					<div class="uk-margin uk-flex ">
+						<a class="uk-text-warning uk-margin-right" href="{{ path('user_edit', {'id': user.id}) }}">
+							<span uk-icon="icon: file-edit; ratio: 1.2"></span>
+						</a>
+					</div>
+				{% endif %}
+			</div>
+			<div class="uk-margin uk-flex uk-flex-between">
+				<div>
+					<span class="uk-text-small uk-text-bold">Name</span>
+					<p class="uk-margin-remove">{{ user.name }}</p>
+				</div>
+				<div>
+					<span class="uk-text-small uk-text-bold">Usuário desde:</span>
+					<p class="uk-margin-remove">{{ user.createdAt ? user.createdAt|date('d/m/Y') : '' }}</p>
+				</div>
+
+			</div>
+			<div class="uk-margin">
+				<span class="uk-text-small uk-text-bold">Email</span>
+				<p class="uk-margin-remove">{{ user.email }}</p>
+			</div>
+			<div class="uk-margin">
+				<span class="uk-text-small uk-text-bold">Bio</span>
+				<p class="uk-margin-remove">{{ user.bio }}</p>
+			</div>
+
+
+		</div>
+	</div>
+{% endblock %}

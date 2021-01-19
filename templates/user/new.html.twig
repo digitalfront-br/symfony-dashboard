@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User
+{% endblock %}
+
+{% block body %}
+	<div>
+		<h3 id="card" class="uk-h3 heading-fragment uk-flex uk-flex-between">
+			<span>Novo Usuário</span>
+			<span>
+				<a href="{{ path('user_index') }}" class="uk-button uk-button-default uk-button-small">Voltar</a>
+			</span>
+		</h3>
+		<div class="uk-card uk-card-small uk-card-body uk-card-default">
+
+			{{ include('user/_form.html.twig') }}
+		</div>
+	</div>
+{% endblock %}

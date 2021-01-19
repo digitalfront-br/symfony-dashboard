@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index
+{% endblock %}
+
+{% block body %}
+	<div>
+		<h3 id="card" class="uk-h3 heading-fragment uk-flex uk-flex-between">
+			<span>Usuários</span>
+			<span>
+				{% if app.user.roles[0] == 'ROLE_ADMIN' %}
+					<a href="{{ path('user_new') }}" class="uk-button uk-button-primary uk-button-small">Novo Usuário</a>
+				{% endif %}
+			</span>
+		</h3>
+		<div class="uk-card uk-card-small uk-card-body uk-card-default">
+			<table class="uk-table uk-table-divider">
+				<thead>
+					<tr>
+						<th>…</th>
+						<th>User</th>
+						<th class="uk-text-center">Status</th>
+						<th>Email</th>
+						<th>Regra</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr>
+							<td>{{ user.id }}</td>
+							<td>
+								<div class="uk-flex uk-flex-middle">
+									<div>
+										<a href="">
+											<img class="uk-border-circle" width="40" height="40" src="/assets/img/avatars/{{ user.avatar }}" alt="">
+										</a>
+									</div>
+									<div class="uk-margin-left avatar-text">
+										<p class="uk-margin-remove-bottom uk-text-small uk-text-bold">{{ user.name }}</p>
+									</div>
+								</div>
+							</td>
+							<td class="uk-text-center">
+								{% if user.status == 1 %}
+									<span class="uk-badge "></span>
+								{% elseif user.status == 2 %}
+									<span class="uk-text-primary">
+										<span uk-icon="icon: future; ratio: 1.2"></span>
+									</span>
+								{% elseif user.status == 0 %}
+									<span class="uk-badge uk-background-muted"></span>
+								{% endif %}
+							</td>
+							<td>{{ user.email }}</td>
+							<td>
+								{% if user.roles[0] == 'ROLE_ADMIN' %}
+									<span class="uk-text-small">Admin</span>
+								{% elseif user.roles[0] == 'ROLE_USER' %}
+									<span class="uk-text-small">User</span>
+								{% endif %}
+							</td>
+							{% if app.user.roles[0] == 'ROLE_ADMIN' %}
+								<td>
+									<div class="uk-flex uk-flex-between">
+										<a href="{{ path('user_show', {'id': user.id}) }}">
+											<span uk-icon="icon: copy; ratio: 1.2"></span>
+										</a>
+										<a class="uk-text-warning" href="{{ path('user_edit', {'id': user.id}) }}">
+											<span uk-icon="icon: file-edit; ratio: 1.2"></span>
+										</a>
+										{% if user.id != app.user.id %}
+											{{ include('user/_delete_form.html.twig') }}
+										{% else %}
+											<div class="uk-padding-small"></div>
+										{% endif %}
+									</div>
+								</td>
+							{% elseif user.id == app.user.id  and app.user.roles[0] == 'ROLE_USER' %}
+								<td>
+									<a href="{{ path('user_show', {'id': user.id}) }}">
+										<span uk-icon="icon: copy; ratio: 1.2"></span>
+									</a>
+									<a class="uk-text-warning" href="{{ path('user_edit', {'id': user.id}) }}">
+										<span uk-icon="icon: file-edit; ratio: 1.2"></span>
+									</a>
+								</td>
+							{% else %}
+
+								<td>
+									<div class="uk-flex uk-flex-between">
+										<a href="{{ path('user_show', {'id': user.id}) }}">
+											<span uk-icon="icon: copy; ratio: 1.2"></span>
+										</a>
+									</div>
+								</td>
+							{% endif %}
+
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="11">Não existe usuários Cadastrados</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<!--<div class="uk-margin">
+																																																							<ul class="uk-pagination uk-flex-right uk-margin-medium-top" uk-margin>
+																																																								<li>
+																																																									<a href="#">
+																																																										<span uk-pagination-previous></span>
+																																																									</a>
+																																																								</li>
+																																																								<li>
+																																																									<a href="#">1</a>
+																																																								</li>
+																																																								<li class="uk-disabled">
+																																																									<span>...</span>
+																																																								</li>
+																																																								<li>
+																																																									<a href="#">5</a>
+																																																								</li>
+																																																								<li>
+																																																									<a href="#">6</a>
+																																																								</li>
+																																																								<li class="uk-active">
+																																																									<span>7</span>
+																																																								</li>
+																																																								<li>
+																																																									<a href="#">8</a>
+																																																								</li>
+																																																								<li>
+																																																									<a href="#">
+																																																										<span uk-pagination-next></span>
+																																																									</a>
+																																																								</li>
+																																																							</ul>
+																																																						</div> -->
+	</div>
+{% endblock %}
